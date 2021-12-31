@@ -18,3 +18,4 @@ yarn rw prisma db seed
 yarn rw dev
 ```
 # redwood-blog-netlify-auth-starter
+# redwood-blog-netlify-auth-starter
