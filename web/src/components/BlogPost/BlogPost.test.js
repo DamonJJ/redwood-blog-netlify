@@ -15,4 +15,33 @@ describe('BlogPost', () => {
     expect(screen.getByText(post.title)).toBeInTheDocument()
     expect(screen.getByText(post.body)).toBeInTheDocument()
   })
+
+  it('renders comments when displaying a full blog post', async () => {
+    const comment = standard().comments[0]
+    render(<BlogPost post={POST} />)
+
+    await waitFor(() =>
+      expect(screen.getByText(comment.body)).toBeInTheDocument()
+    )
+  })
+
+  it('renders a summary of a blog post', () => {
+    render(<BlogPost post={POST} summary={true} />)
+
+    expect(screen.getByText(POST.title)).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Neutra tacos hot chicken prism raw denim, put a bird on it enamel pin post-ironic vape cred DIY. Str...'
+      )
+    ).toBeInTheDocument()
+  })
+
+  it('does not render comments when displaying a summary', async () => {
+    const comment = standard().comments[0]
+    render(<BlogPost post={POST} summary={true} />)
+
+    await waitFor(() =>
+      expect(screen.queryByText(comment.body)).not.toBeInTheDocument()
+    )
+  })
 })
